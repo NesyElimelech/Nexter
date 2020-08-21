@@ -1,0 +1,83 @@
+// COLOR VARIABLES
+$color-primary: #56bba5;
+$color-primary-dark: #218171;
+
+$color-secondary: #142b35;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #c0cec3;
+
+$color-grey-dark-1: #495455;
+$color-grey-dark-2: #2f3c3f;
+
+// FONT VARIABLES
+$font-primary: "Nunito", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+//SHADOW VARIABLES
+$shadow-black: 0 2rem 5rem rgba(0, 0, 0, 0.3);
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;
+$bp-large: 62.5em;
+$bp-medium: 50em;
+$bp-small: 37.5em;
+
+//! Global reset
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; //* 10px/16px = 62.5% => 1rem = 10px *//
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  font-weight: 300;
+  line-height: 1.6;
+  color: $color-grey-dark-2;
+}
+
+//*? Grid responsive layout setup
+
+.container {
+  display: grid;
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content); // 8 responsive rows
+  grid-template-columns:
+    [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr)
+    // 80px fixed size column for the sidebar and 60px minimum 1 column
+    [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    //a minimum 140px 8 center columns
+    [center-end] minmax(6rem, 1fr)
+    [full-end]; // 60px minimum 1 column  ** 11 columns total **
+
+  @media only screen and (max-width: $bp-large) {
+    grid-template-rows: 6rem 60vh min-content 40vw repeat(3, min-content); // 8 responsive rows
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      // 80px fixed size column for the sidebar and 60px minimum 1 column
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      //a minimum 140px 8 center columns
+      [center-end] minmax(6rem, 1fr)
+      [full-end]; // 60px minimum 1 column  ** 11 columns total **
+  }
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-rows: 6rem calc(82vh - 6rem) min-content min-content min-content repeat(
+        3,
+        min-content
+      );
+  }
+  @media only screen and (max-width: $bp-small) {
+    grid-template-rows: 6rem calc(76vh - 6rem);
+  }
+}
